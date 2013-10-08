@@ -1,0 +1,92 @@
+* {
+	font-family: "Segoe UI";
+	font-weight: normal;
+	margin: 0;
+	padding: 0;
+}
+html, body {
+	height: 100%;
+}
+#gridContainer {
+	height: 80%;
+	background-color: #EBEBEB;
+}
+
+#gridOutline {
+	width: 81%;
+	height: 81%;
+	margin: 0 auto;
+	margin-top: 0%;
+	padding-top: 5%;
+	text-align: center;
+	line-height: 95%;
+}
+
+#gridOutline span.cell {
+	display: inline-block;
+	background-color: #D6D6D6;
+	width: 9%;
+	text-align: center;
+	padding: 11px 0;
+	cursor: default;
+	height: 5%;
+	overflow: hidden;
+	color: grey;
+	border: 1px solid #C7C7C7;
+	font-size: 14px;
+}
+
+#gridOutline span.u-i {
+	background-color: #3582B6;
+	color: white;
+}
+
+#thezillion {
+	position: fixed;
+	top: 0;
+	z-index: 100;
+	left: 0;
+	background-color: #17B3E4;
+	color: white;
+	padding: 4px 7px;
+	font-size: 13px;
+}
+
+#text {
+	height: 20%;
+	background-color: #E7E7E7;
+	border-top: 1px solid #D8D8D8;
+	position: fixed;
+	bottom: 0;
+	z-index: 99;
+	left: 0;
+	right: 0;
+}
+#text #intext {
+	padding: 20px;
+}
+
+#text #intext h2 {
+	font-size: 3em;
+	float: left;
+}
+
+#text #intext p {
+	
+	float: right;
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: "Segoe UI Light";
+}
+
+.sel {
+	background-color: #3F96CF !important;
+	color: white !important;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+	border-bottom: 1px solid;
+}
