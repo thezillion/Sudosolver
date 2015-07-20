@@ -90,3 +90,9 @@ a {
 	text-decoration: none;
 	border-bottom: 1px solid;
 }
+
+.cell-b {
+	font-weight: bold;
+	background-color: #D6D6D6 !important;
+	color: grey !important;
+}
