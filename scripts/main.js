@@ -12,6 +12,16 @@ Array.prototype.removeVal = function(v) {
 	var i = this.indexOf(v);
 	if (i !=- 1)
 		this.splice(i, 1); // If -1 is passed, splice removes the last element.
+};
+
+Array.prototype.duplicateTo = function(arr) {
+	for (var i = 0, l = this.length; i<l; i++) {
+		arr[i] = this[i];
+	}
+};
+
+function in_array(haystack, needle) {
+	return (haystack.indexOf(needle) != -1);
 }
 
 function buildSudoku() {
@@ -133,7 +143,7 @@ function init() {
 	win.addEventListener("keydown", monitorKeyPress);
 	// _("*[data-coord='0,0']").classList.add("sel");
 
-	testCaseMedium();
+	// testCaseHard();
 }
 
 function elem(i, j) {
@@ -240,6 +250,25 @@ function solved(i, j) {
 
 }
 
+function sameArray(a, b) {
+
+	var are_same = true;
+
+	if (a.length != b.length) {
+		are_same = false;
+	} else {
+		for (var i = 0; a[i]; i++) {
+			if (a[i] != b[i]) {
+				are_same = false;
+				break;
+			}
+		}
+	}
+
+	return are_same;
+
+}
+
 function testCaseEasy() {
 	testCase([
 		[0, 6, 2, 0, 0, 0, 0, 0, 3],
@@ -282,5 +311,19 @@ function testCaseHard() {
 	]);
 }
 
+function testCaseForDP() {
+	testCase([
+		[9, 3, 4, 0, 6, 0, 0, 5, 0],
+		[0, 0, 6, 0, 0, 4, 9, 2, 3],
+		[0, 0, 8, 9, 0, 0, 0, 4, 6],
+		[8, 0, 0, 5, 4, 6, 0, 0, 7],
+		[6, 0, 0, 0, 1, 0, 0, 0, 5],
+		[5, 0, 0, 3, 9, 0, 0, 6, 2],
+		[3, 6, 0, 4, 0, 1, 2, 7, 0],
+		[4, 7, 0, 6, 0, 0, 5, 0, 0],
+		[0, 8, 0, 0, 0, 0, 6, 3, 4]
+	]);
+}
+
 win.addEventListener("load", init);
-_("#testCase").addEventListener("click", testCaseEasy);
+// _("#testCase").addEventListener("click", testCaseEasy);

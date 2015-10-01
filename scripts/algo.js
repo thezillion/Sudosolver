@@ -26,7 +26,10 @@ function think() {
 
 	adjustPossibilities();
 	considerUniquePoss();
-	resolveLeftovers();
+	nakedPairs();
+	candidateLines();
+	// choosePossibilities();
+	// resolveLeftovers();
 	updateLeftovers();
 
 }
@@ -86,106 +89,6 @@ function updatePossibilities(i, j) { // remove possible candidate from current r
 	loop_3x3(i, j, function(row, col) { // Edit each cell in current 3x3
 		editCell(row, col, number);
 	});
-
-}
-
-function considerUniquePoss() {
-	
-	// We are down to leftover possibilities.
-	// What if there are candidates for a cell, which are not candidates for any cell in the
-	// same row, col and 3x3? Then that means that that candidate is the right choice for that
-	// particular cell.
-
-	var initial_solved_cells_count = solved_cells_count;
-
-	if (solved_cells_count < 81) { // The grid should not be completely solved, for this to work
-
-		loop_cells(function(row, col) {
-
-			var cell = poss_grid[row][col];
-			
-			if (!solved(row, col)) {
-
-				var poss = cell.poss, search_value;
-
-				for (var i = 0; poss[i]; i++) { // Search for all possible candidates of this cell in the cells of the same row, col and 3x3
-
-					var value = poss[i];
-
-					for (var p = 0; p<9; p++) {
-
-						if (!solved(row, p) && p != col) {
-
-							search_value = poss_grid[row][p].poss.indexOf(value);
-							
-							if (search_value != -1) {
-								break;
-							}
-
-						}
-
-					}
-
-					if (search_value != -1) // searching for the next possibility if this one is a candidate in any cell in the current row
-						continue;
-
-					for (var q = 0; q<9; q++) {
-
-						if (!solved(q, col) && q != row) {
-
-							search_value = poss_grid[q][col].poss.indexOf(value);
-
-							if (search_value != -1) {
-								break;
-							}
-
-						}
-
-					}
-
-					if (search_value != -1) // searching for the next possibility if this one is a candidate in any cell in the current col
-						continue;
-
-					var fcell = firstCell_3x3(row, col); // Start of the 3x3 corresponding to the current cell
-					for (var r = fcell.row, rr = r+2; r<=rr; r++) {
-
-						for (var s = fcell.col, ss = s+2; s<=ss; s++) {
-
-							if (!solved(r, s) && r != row && s != col) {
-
-								search_value = poss_grid[r][s].poss.indexOf(value);
-
-								if (search_value != -1) {
-									break;
-								}
-
-							}
-
-						}
-
-						if (search_value != -1) // breaking out if value is found
-							break;
-
-					}
-
-					if (search_value != -1) { // searching for the next possibility if this one is a candidate in any cell in the current 3x3
-						continue;
-					} else {
-						poss_grid[row][col].poss = [value];
-						registerIfSolved(row, col);
-						elem(row, col).classList.add("u-i"); // dark blue background for solved cells
-						break;
-					}
-
-				}
-
-			}
-
-		});
-
-	}
-
-	console.log("Considering unique possibilities: ", (solved_cells_count - initial_solved_cells_count));
 
 }
 
@@ -269,5 +172,19 @@ function resolveOneLeftover(i, j, index) {
 	adjustPossibilities();
 	considerUniquePoss();
 	updateLeftovers();
+
+}
+
+function removePossibility(i, j, value) {
+
+	if (!solved(i, j)) {
+
+		var index = poss_grid[i][j].poss.indexOf(value);
+		// console.log(index);
+
+		if (index != -1)
+			poss_grid[i][j].poss.splice(index, 1);
+
+	}
 
 }
